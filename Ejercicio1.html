@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio de Recursividad en JavaScript</title>
+</head>
+<body>
+  <script>
+    // Funcion recursiva para calcular el factorial
+    function factorial(n) {
+      // Caso base: el factorial de 0 es 1
+      if (n === 0) {
+        return 1;
+      } else {
+        // Caso recursivo: n! = n * (n-1)!
+        return n * factorial(n-1);
+      }
+    }
+
+    // Funcion recursiva para calcular el numero de Fibonacci
+    function fibonacci(n) {
+      // Caso base: los primeros dos numeros de Fibonacci son 0 y 1
+      if (n<=1) {
+        return n;
+      } else {
+        // Caso recursivo: F(n) = F(n-1) = F(n-2)
+        return fibonacci(n-1) + fibonacci(n-2);
+      }
+    }
+
+    // Ejemplo de uso y resultados
+    console.log("Factorial de 5:", factorial(5)); // salida: 120
+    console.log("Numero de fibonacci en la posicion 8:", fibonacci(8)); // salida: 21
+
+    // Consideracion de rendimiento:
+    // La recursion puede ser menos eficiente que los bucles para calculos grandes debido a la sobrecrga de llamadas funciones.
+    // Para calcular numeros de Fibonacci grandes, se recomienda usar memorizacion o iteracion.
+
+    // Buenas practicas:
+    // Nombres claros y significativos: factorial y fibonacci
+    // Division de responsabilidades: cada funcion calcula un solo valor
+    // Comentarios explican el caso base y recursivo
+    // Documentacion: se podria agregar una descripcion mas detallada de cada funcion
+  </script>
+</body>
+</html>

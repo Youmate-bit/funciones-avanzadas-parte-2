@@ -1,0 +1,113 @@
+<!--
+
+	Ejercicio: Generación de Fractales de Sierpinski
+	
+	Descripción del Problema:
+
+		Un fractal de Sierpinski es un patrón geométrico que se repite 
+		a diferentes escalas. 
+		
+		Se construye a partir de un triángulo equilátero, 
+		dividiéndolo en cuatro triángulos más pequeños 
+		y eliminando el triángulo central. 
+		
+		El proceso se repite recursivamente en 
+		cada uno de los triángulos restantes.
+		
+		
+	Propuesta de Ejercicio:
+
+	1-Implementación Recursiva: Crear una función recursiva que genere 
+	   un fractal de Sierpinski en un canvas HTML.
+	2-Visualización: Utilizar el canvas HTML para dibujar los triángulos 
+	  y crear la animación de la generación del fractal.
+	
+	3-Personalización: Permitir al usuario elegir el nivel de 
+	  profundidad del fractal y el color.	
+
+-->
+
+<!-- 
+	EXPLICACIÓN:
+		Dibujar un triángulo: 
+		
+			La función dibujarTriangulo utiliza el contexto del canvas
+			para dibujar un triángulo dado sus tres vértices.
+	
+	FRACTAL DE SIERPINSKY:
+	La función sierpinski toma como entrada las coordenadas 
+	de los vértices del triángulo inicial y el nivel de recursión.
+	
+	Si el nivel es 0, se dibuja el triángulo.
+	
+	Si el nivel es mayor que 0:
+	Se calculan los puntos medios de los lados del triángulo.
+	
+	Se llama recursivamente a la función sierpinski para cada uno 
+	de los cuatro subtriángulos resultantes, 
+	disminuyendo el nivel de recursión en 1.
+	
+	INICIALIZACIÓN: Se llama a la función sierpinski 
+	con las coordenadas del triángulo inicial y un nivel 
+	de recursión de 5 (puedes ajustarlo para obtener diferentes niveles de detalle).
+	
+	************¿CÓMO FUNCIONA?************
+
+	La función sierpinski divide el triángulo en cuatro subtriángulos 
+	más pequeños y repite este proceso en cada subtriángulo 
+	hasta alcanzar el nivel de recursión especificado.
+	
+	Cada vez que se alcanza el nivel 0, 
+	se dibuja un triángulo, 
+	creando así el patrón fractal.
+
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fractal de Sierpinski</title>
+</head>
+<body>
+  <canvas id="sierpinskiCanvas" width="600" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('sierpinskiCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Función para dibujar un triángulo
+    function dibujarTriangulo(x1, y1, x2, y2, x3, y3) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.lineTo(x3, y3);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Función recursiva para generar el fractal de Sierpinski
+    function sierpinski(x1, y1, x2, y2, x3, y3, nivel) {
+      if (nivel === 0) {
+        dibujarTriangulo(x1, y1, x2, y2, x3, y3);
+        return;
+      }
+
+      // Calcular los puntos medios de los lados
+      const xm1 = (x1 + x2) / 2;
+      const ym1 = (y1 + y2) / 2;
+      const xm2 = (x2 + x3) / 2;
+      const ym2 = (y2 + y3) / 2;
+      const xm3 = (x1 + x3) / 2;
+      const ym3 = (y1 + y3) / 2;
+
+      // Dibujar los tres subtriángulos
+      sierpinski(x1, y1, xm1, ym1, xm3, ym3, nivel - 1);
+      sierpinski(xm1, ym1, x2, y2, xm2, ym2, nivel - 1);
+      sierpinski(xm3, ym3, xm2, ym2, x3, y3, nivel - 1);
+    }
+
+    // Inicialización y llamada a la función
+    sierpinski(0, canvas.height, canvas.width / 2, 0, canvas.width, canvas.height, 5);
+  </script>
+</body>
+</html>
+
